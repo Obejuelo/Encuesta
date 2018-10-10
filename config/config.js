@@ -13,3 +13,5 @@ process.env.URLDB = 'mongodb://localhost:27017/encuesta';
 // ============================
 process.env.JWT = 'poiuytrd1425367hdbfb1788374';
 
+
+process.env.CADUCIDAD_TOKEN = '24h';

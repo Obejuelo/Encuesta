@@ -27,7 +27,7 @@ const authenticate = (req, res, next) => {
 const generateToken = (req, res, next) => {
 	if (!req.user) return next();
 
-	req.token = jwt.sign({ id: req.user._id }, process.env.JWT);
+	req.token = jwt.sign({ id: req.user._id }, process.env.JWT, { expiresIn: process.env.CADUCIDAD_TOKEN });
 
 	next();
 }
