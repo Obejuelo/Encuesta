@@ -6,7 +6,7 @@ const sessionController = require('../controllers/sessionController');
 router.route('/login')
 	.post(
 		sessionController.authenticateLogin,
-		sessionController.generateToken,
+		sessionController.generateTokenStudent,
 		sessionController.sendToken)
 
 module.exports = router;

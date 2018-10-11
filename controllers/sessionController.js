@@ -27,7 +27,14 @@ const authenticate = (req, res, next) => {
 const generateToken = (req, res, next) => {
 	if (!req.user) return next();
 
-	req.token = jwt.sign({ id: req.user._id }, process.env.JWT, { expiresIn: process.env.CADUCIDAD_TOKEN });
+	let info = {
+		id: req.user._id,
+		name: req.user.name,
+		email: req.user.email,
+		admin: req.user.admin
+	}
+
+	req.token = jwt.sign(info, process.env.JWT, { expiresIn: process.env.CADUCIDAD_TOKEN });
 
 	next();
 }
@@ -63,10 +70,26 @@ const authenticateLogin = (req, res, next) => {
 		})
 }
 
+const generateTokenStudent = (req, res, next) => {
+	if (!req.user) return next();
+
+	let info = {
+		id: req.user._id,
+		ciclo: req.user.ciclo,
+		nombre: req.user.nombre,
+		grupo: req.user.grupo
+	}
+
+	req.token = jwt.sign(info, process.env.JWT, { expiresIn: process.env.CADUCIDAD_TOKEN });
+
+	next();
+}
+
 
 module.exports = {
 	authenticate,
 	generateToken,
 	sendToken,
-	authenticateLogin
+	authenticateLogin,
+	generateTokenStudent
 }

@@ -7,12 +7,19 @@ const authenticate = require('../middlewares/authenticate');
 router.route('/user')
 	.get(userController.index)
 	.post(
-		authenticate.verificaToken,
+		authenticate.verifyToken,
+		authenticate.verifyAdmin,
 		userController.create)
 
 router.route('/user/:id')
 	.get(userController.find)
-	.put(userController.update)
-	.delete(userController.destroy)
+	.put(
+		authenticate.verifyToken,
+		authenticate.verifyAdmin,
+		userController.update)
+	.delete(
+		authenticate.verifyToken,
+		authenticate.verifyAdmin,
+		userController.destroy)
 
 module.exports = router;

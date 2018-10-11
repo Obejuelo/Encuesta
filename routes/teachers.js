@@ -2,14 +2,24 @@ var express = require('express');
 var router = express.Router();
 
 const teacherController = require('../controllers/teacherController');
+const authenticate = require('../middlewares/authenticate');
 
 router.route('/teacher')
 	.get(teacherController.index)
-	.post(teacherController.create)
+	.post(
+		authenticate.verifyToken,
+		authenticate.verifyAdmin,
+		teacherController.create)
 
 router.route('/teacher/:id')
 	.get(teacherController.find)
-	.put(teacherController.update)
-	.delete(teacherController.destroy)
+	.put(
+		authenticate.verifyToken,
+		authenticate.verifyAdmin,
+		teacherController.update)
+	.delete(
+		authenticate.verifyToken,
+		authenticate.verifyAdmin,
+		teacherController.destroy)
 
 module.exports = router;
