@@ -20,6 +20,18 @@ const find = (req, res) => {
 		})
 }
 
+//Get teacher with _id
+const findById = (req, res) => {
+	Teacher.findOne({ 'clave': req.params.id })
+		.then(data => {
+			res.json(data)
+		})
+		.catch(err => {
+			res.status(300).json(err);
+			console.log(err);
+		})
+}
+
 //Post teacher(s)
 const create = (req, res) => {
 	Teacher.create({
@@ -57,4 +69,4 @@ const destroy = (req, res) => {
 		})
 }
 
-module.exports = { create, index, find, update, destroy }
+module.exports = { create, index, find, update, destroy, findById}

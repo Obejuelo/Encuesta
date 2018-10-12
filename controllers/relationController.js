@@ -1,6 +1,6 @@
 const Relation = require('../models/Relation');
 
-//get matter
+//get relation
 const index = (req, res) => {
 	Relation.paginate({}, { page: req.query.page || 1, limit: 10, sort: { '_id': -1 } })
 		.then(data => {
@@ -8,7 +8,7 @@ const index = (req, res) => {
 		})
 }
 
-//Get matter with _id
+//Get relation with _id
 const find = (req, res) => {
 	Relation.findOne({ '_id': req.params.id })
 		.then(data => {
@@ -20,7 +20,15 @@ const find = (req, res) => {
 		})
 }
 
-//Post matter(s)
+//get relation by enrollment
+const findByEnrollment = (req, res) => {
+	Relation.find({'matricula': req.params.matr})
+		.then(data => {
+			res.json(data);
+		})
+}
+
+//Post relation(s)
 const create = (req, res) => {
 	// Relation.create({
 	// 	clave: req.body.clave,
@@ -49,7 +57,7 @@ const create = (req, res) => {
 
 }
 
-//Update matter
+//Update relation
 const update = (req, res) => {
 	let body = req.body;
 	let id = req.params.id;
@@ -62,7 +70,7 @@ const update = (req, res) => {
 		});
 }
 
-//Delete matter
+//Delete relation
 const destroy = (req, res) => {
 	let id = req.params.id;
 
@@ -74,4 +82,4 @@ const destroy = (req, res) => {
 		})
 }
 
-module.exports = { create, index, find, update, destroy }
+module.exports = { create, index, find, update, destroy, findByEnrollment }

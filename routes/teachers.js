@@ -21,5 +21,7 @@ router.route('/teacher/:id')
 		authenticate.verifyToken,
 		authenticate.verifyAdmin,
 		teacherController.destroy)
+router.route('/teacher/name/:id')
+	.get(teacherController.findById)
 
 module.exports = router;

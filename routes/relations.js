@@ -22,4 +22,9 @@ router.route('/relation/:id')
 		authenticate.verifyAdmin,
 		relationController.destroy)
 
+router.route('/relation/student/:matr')
+	.get(
+		authenticate.verifyToken,
+		relationController.findByEnrollment)
+
 module.exports = router;

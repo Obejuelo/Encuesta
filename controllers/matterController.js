@@ -10,9 +10,9 @@ const index = (req, res) => {
 
 //Get matter with _id
 const find = (req, res) => {
-	Matter.findOne({ '_id': req.params.id })
+	Matter.findOne({ 'clave': req.params.id })
 		.then(data => {
-			res.json(data)
+			res.json(data.nombre)
 		})
 		.catch(err => {
 			res.status(300).json(err);
