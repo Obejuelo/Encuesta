@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const mongoPage = require('mongoose-paginate');
 
 const relationSchema = new mongoose.Schema({
-	clave: {
+	materia: {
 		type: String,
 		required: true
 	},
@@ -14,8 +14,8 @@ const relationSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	codigo: {
-		type: Number,
+	maestro: {
+		type: String,
 		required: true
 	}
 });

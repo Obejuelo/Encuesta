@@ -42,16 +42,15 @@ const create = (req, res) => {
 	// })
 
 	let relation = new Relation({
-		clave: req.body.clave,
+		materia: req.body.materia,
 		matricula: req.body.matricula,
 		ciclo: req.body.ciclo,
-		codigo: req.body.codigo
+		maestro: req.body.maestro
 	});
 
 	relation.save((err, relation) => {
-		if(err){
-			res.json(err)
-		}
+		if(err){res.json(err)}
+		
 		res.json(relation);
 	})
 

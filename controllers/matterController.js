@@ -12,7 +12,7 @@ const index = (req, res) => {
 const find = (req, res) => {
 	Matter.findOne({ 'clave': req.params.id })
 		.then(data => {
-			res.json(data.nombre)
+			res.json(data)
 		})
 		.catch(err => {
 			res.status(300).json(err);

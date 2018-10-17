@@ -9,7 +9,7 @@ const app = express();
 mongoose.set('useCreateIndex', true);
 mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err, res) => {
 	if(err) throw Error(err)
-	console.log('DB online');
+	// console.log('DB online');
 });
 
 //middlewares
