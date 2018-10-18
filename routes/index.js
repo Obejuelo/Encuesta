@@ -9,5 +9,6 @@ app.use(require('./questions'));
 app.use(require('./users'));
 app.use(require('./session'));
 app.use(require('./login'));
+app.use(require('./answer'));
 
 module.exports = app;
