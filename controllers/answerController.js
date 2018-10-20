@@ -2,7 +2,7 @@ const Answer = require('../models/Answer');
 
 const create = (req, res) => {
 	Answer.create({
-		maestro: req.body.maestro,
+		alumno: req.body.alumno,
 		materia: req.body.materia,
 		pregunta: req.body.pregunta,
 		resp: req.body.resp
@@ -13,4 +13,14 @@ const create = (req, res) => {
 	})
 }
 
-module.exports = {create}
+const findByStudent = (req,res) => {
+	Answer.find({ alumno: req.params.alum,materia: req.params.mat})
+		.then(data => {
+			res.json(data);
+		})
+		.catch(err => {
+			res.json(err);
+		})
+}
+
+module.exports = { create, findByStudent }

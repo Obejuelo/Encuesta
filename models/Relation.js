@@ -6,6 +6,10 @@ const relationSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	clave: {
+		type: String,
+		required:true
+	},
 	matricula: {
 		type: String,
 		required: true

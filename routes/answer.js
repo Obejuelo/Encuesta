@@ -9,5 +9,8 @@ router.route('/answer')
 	.post(
 		authenticate.verifyToken,
 		answerController.create)
+	
+router.route('/answer/:alum/:mat')
+	.get(answerController.findByStudent)
 
 module.exports = router;

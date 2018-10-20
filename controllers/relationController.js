@@ -45,7 +45,8 @@ const create = (req, res) => {
 		materia: req.body.materia,
 		matricula: req.body.matricula,
 		ciclo: req.body.ciclo,
-		maestro: req.body.maestro
+		maestro: req.body.maestro,
+		clave: req.body.clave
 	});
 
 	relation.save((err, relation) => {
