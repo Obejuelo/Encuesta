@@ -14,7 +14,7 @@ const create = (req, res) => {
 }
 
 const findByStudent = (req,res) => {
-	Answer.find({ alumno: req.params.alum,materia: req.params.mat})
+	Answer.findOne({ alumno: req.params.alum,materia: req.params.mat})
 		.then(data => {
 			res.json(data);
 		})

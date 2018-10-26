@@ -1,4 +1,6 @@
 const Teacher = require('../models/Teacher');
+const xlsxj = require("xlsx-to-json");
+const path = require('path');
 
 //get teachers
 const index = (req, res) => {
@@ -34,14 +36,29 @@ const findById = (req, res) => {
 
 //Post teacher(s)
 const create = (req, res) => {
-	Teacher.create({
-		clave: req.body.clave,
-		nombre: req.body.nombre
-	}).then(docs => {
-		res.json(docs)
-	}).catch(err => {
-		res.status(300).json(err);
+	//send teacher with excel
+	let folder = path.resolve(__dirname, '../../assets');
+	let file = req.files.file;
+
+	if(!req.files){res.json({message:'no se ha seleccionado el archivo'})}
+
+	file.mv(`${folder}/excel/file.xlsx`, (err) => {
+		if (err) {
+			res.json(err)
+			console.log(err);
+		}
+		res.json({ ok: 'ok' })
 	})
+	
+	
+	// Teacher.create({
+	// 	clave: req.body.clave,
+	// 	nombre: req.body.nombre
+	// }).then(docs => {
+	// 	res.json(docs)
+	// }).catch(err => {
+	// 	res.status(300).json(err);
+	// })
 }
 
 //Update teacher
