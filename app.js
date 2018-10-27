@@ -1,5 +1,4 @@
 require('./config/config');
-const fileUpload = require('express-fileupload');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -15,7 +14,6 @@ mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err, res) => {
 
 //middlewares
 app.use(morgan('dev'));
-app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));

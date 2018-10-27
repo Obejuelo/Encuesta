@@ -9,8 +9,8 @@ router.route('/teacher')
 	.post(
 		authenticate.verifyToken,
 		authenticate.verifyAdmin,
-		teacherController.create)
-
+		teacherController.create,
+		teacherController.converterJson)
 router.route('/teacher/:id')
 	.get(teacherController.find)
 	.put(

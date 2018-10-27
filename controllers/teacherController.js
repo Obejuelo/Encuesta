@@ -1,6 +1,12 @@
 const Teacher = require('../models/Teacher');
+const fileUpload = require('express-fileupload');
 const xlsxj = require("xlsx-to-json");
+const express = require('express');
 const path = require('path');
+const app = express();
+
+//File upload
+app.use(fileUpload());
 
 //get teachers
 const index = (req, res) => {
@@ -34,31 +40,42 @@ const findById = (req, res) => {
 		})
 }
 
+const createOne = (req,res) => {
+	Teacher.create({
+		clave: req.body.clave,
+		nombre: req.body.nombre
+	}).then(docs => {
+		res.json(docs)
+	}).catch(err => {
+		res.status(300).json(err);
+	})
+}
 //Post teacher(s)
-const create = (req, res) => {
+const create = async (req, res, next) => {
 	//send teacher with excel
 	let folder = path.resolve(__dirname, '../../assets');
 	let file = req.files.file;
 
 	if(!req.files){res.json({message:'no se ha seleccionado el archivo'})}
 
-	file.mv(`${folder}/excel/file.xlsx`, (err) => {
-		if (err) {
-			res.json(err)
-			console.log(err);
-		}
-		res.json({ ok: 'ok' })
-	})
-	
-	
-	// Teacher.create({
-	// 	clave: req.body.clave,
-	// 	nombre: req.body.nombre
-	// }).then(docs => {
-	// 	res.json(docs)
-	// }).catch(err => {
-	// 	res.status(300).json(err);
-	// })
+	try {
+		let moveTo = await file.mv('./public/assets/excel/file.xlsx')
+		next();
+	} catch (error) {
+		res.json(error)
+	}
+}
+
+const converterJson = (req, res) => {
+	let url = {
+		input: 'public/assets/excel/file.xlsx',
+		output: "public/assets/json/output.json"
+	}
+
+	xlsxj(url, (err, data) => {
+		if(err){console.log(err); res.json(err)}
+		res.json(data)
+	});
 }
 
 //Update teacher
@@ -86,4 +103,13 @@ const destroy = (req, res) => {
 		})
 }
 
-module.exports = { create, index, find, update, destroy, findById}
+module.exports = { 
+	create, 
+	index, 
+	find, 
+	update, 
+	destroy, 
+	findById, 
+	converterJson, 
+	createOne
+}
