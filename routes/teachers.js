@@ -11,6 +11,11 @@ router.route('/teacher')
 		authenticate.verifyAdmin,
 		teacherController.create,
 		teacherController.converterJson)
+router.route('/teacher/excel')
+	.post(
+		authenticate.verifyToken,
+		authenticate.verifyAdmin,
+		teacherController.createOne)
 router.route('/teacher/:id')
 	.get(teacherController.find)
 	.put(

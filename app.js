@@ -1,6 +1,7 @@
 require('./config/config');
 const express = require('express');
 const mongoose = require('mongoose');
+const fileUpload = require('express-fileupload');
 const morgan = require('morgan');
 const path = require('path');
 const app = express();
@@ -15,6 +16,7 @@ mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err, res) => {
 //middlewares
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(fileUpload());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('./middlewares/allowCORs')().unless({ path: '/public' }));

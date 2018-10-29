@@ -1,12 +1,7 @@
 const Teacher = require('../models/Teacher');
-const fileUpload = require('express-fileupload');
 const xlsxj = require("xlsx-to-json");
 const express = require('express');
 const path = require('path');
-const app = express();
-
-//File upload
-app.use(fileUpload());
 
 //get teachers
 const index = (req, res) => {
@@ -50,6 +45,7 @@ const createOne = (req,res) => {
 		res.status(300).json(err);
 	})
 }
+
 //Post teacher(s)
 const create = async (req, res, next) => {
 	//send teacher with excel
